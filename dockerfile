@@ -15,5 +15,4 @@ RUN npm run build
 COPY . /usr/flakron-next-app
 
 EXPOSE 3000     
-
-CMD ["npm", "run", "start"]
+ENTRYPOINT ["npm", "run", "start"]
