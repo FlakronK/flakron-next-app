@@ -1,10 +1,14 @@
 namespace: nextjs-namespace
 appName: flakron-next-app
+hostname: flakron.app
 app: nextjs
+service: nextjs-service
+ingress: nextjs-ingress
 replicas: 3
 imagePullPolicy: IfNotPresent
 imageName: flakron-tag
 imageTag: latest
+servicePort: 80
 containerPort: 3000
 livenessProbe:
   initalDelaySeconds: 15
