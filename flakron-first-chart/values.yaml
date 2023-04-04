@@ -4,12 +4,21 @@ hostname: flakron.myapp.com
 app: nextjs
 service: nextjs-service
 ingress: nextjs-ingress
-replicas: 3
+ingressAnnotations:
+  kubernetes.io/ingress.class: alb
+  alb.ingress.kubernetes.io/scheme: internet-facing
+  alb.ingress.kubernetes.io/target-type: ip
+  alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:eu-central-1:313422618945:certificate/f0511934-1161-4000-af89-6946c2312cc5
+  alb.ingress.kubernetes.io/tags: Name=appstellar-training-flakron, Environment=dev
+  alb.ingress.kubernetes.io/group.name: appstellar-training-flakron
+  # alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'
+  alb.ingress.kubernetes.io/ssl-redirect: '443'
+replicas: 1
 imagePullPolicy: IfNotPresent
-imageName: flakron-tag
-imageTag: latest
+imageName: 313422618945.dkr.ecr.eu-central-1.amazonaws.com/flakronk-nextjs-app:6558809cd95145ea8b3fdf0dc15f9adbc5f3c942
+imageTag: 6558809cd95145ea8b3fdf0dc15f9adbc5f3c942
 servicePort: 80
 containerPort: 3000
 livenessProbe:
-  initalDelaySeconds: 15
+  initialDelaySeconds: 15
   periodSeconds: 20

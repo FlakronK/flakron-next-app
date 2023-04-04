@@ -3,14 +3,15 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
- name: {{ .Values.appName }}-ingress
- labels:
+  name: {{ .Values.appName }}-ingress
+  labels:
     appUpperCase: {{ .Values.ingress | upper }}
- namespace: {{ .Values.namespace }}
- annotations:
+  namespace: {{ .Values.namespace }}
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
 spec:
-  ingressClassName: nginx
+  # ingressClassName: nginx
   rules:
   - host: {{ .Values.hostname }}
     http:
@@ -19,17 +20,8 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: {{ .Values.appName }}--service
+            name: {{ .Values.appName }}-service
             port:
               number: {{ .Values.servicePort }}
 
 {{ end }}
-
-
-
-
-
-
-
-
-
